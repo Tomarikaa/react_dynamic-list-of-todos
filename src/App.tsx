@@ -15,12 +15,13 @@ import { FilterStatus } from './types/FilterStatus';
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[] | null>(null);
   const [users, setUsers] = useState<Record<number, User>>({});
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
+    setLoading(true);
     getTodos()
       .then(fetchedTodos => {
         setTodos(fetchedTodos);
@@ -99,8 +100,6 @@ export const App: React.FC = () => {
           todo={selectedTodo}
           users={users}
           setUsers={setUsers}
-          loading={loading}
-          setLoading={setLoading}
           onClose={() => setSelectedTodo(null)}
         />
       )}
